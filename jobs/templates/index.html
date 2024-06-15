@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Site</title>
+</head>
+<body>
+    <header>
+        <h1>Job Site</h1>
+        <nav>
+            {% if user.is_authenticated %}
+                <p>Bienvenido, {{ user.username }}!</p>
+                <a href="{% url 'logout' %}">Cerrar Sesión</a>
+            {% else %}
+                <a href="{% url 'register-empresa' %}">Registrarse como Empresa</a>
+                <a href="{% url 'register-postulante' %}">Registrarse como Postulante</a>
+                <a href="{% url 'login' %}">Iniciar Sesión</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        <h2>Ofertas de Trabajo</h2>
+        <ul>
+            {% for oferta in ofertas %}
+            <li>
+                <h3>{{ oferta.titulo }}</h3>
+                <p>{{ oferta.descripcion }}</p>
+                <p><strong>Empresa:</strong> {{ oferta.empresa.user.username }}</p>
+                <p><strong>Fecha de Publicación:</strong> {{ oferta.fecha_publicacion }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>
