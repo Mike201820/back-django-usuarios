@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-
+from django.utils import timezone
 
 class CustomUser(AbstractUser):
     is_empresa = models.BooleanField(default=False)
@@ -39,3 +39,14 @@ class Oferta(models.Model):
     descripcion = models.TextField()
     fecha_publicacion = models.DateField(auto_now_add=True)
     postulantes = models.ManyToManyField(Postulante, blank=True, related_name='ofertas')
+
+class Aplicacion(models.Model):
+    ESTADO_CHOICES = [
+        ('Pendiente', 'Pendiente'),
+        ('Aceptada', 'Aceptada'),
+        ('Rechazada', 'Rechazada'),
+    ]
+    oferta = models.ForeignKey(Oferta, on_delete=models.CASCADE)
+    postulante = models.ForeignKey(Postulante, on_delete=models.CASCADE)
+    fecha_aplicacion = models.DateTimeField(default=timezone.now)
+    estado_aplicacion = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='Pendiente')

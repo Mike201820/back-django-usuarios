@@ -1,7 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, Empresa, Postulante
+from .models import CustomUser, Empresa, Postulante, Oferta, Aplicacion
 
+
+class AplicacionForm(forms.ModelForm):
+    class Meta:
+        model = Aplicacion
+        fields = ['oferta', 'postulante', 'estado_aplicacion']
+        
 class EmpresaRegisterForm(UserCreationForm):
 
     nombre = forms.CharField(max_length=255, required=True)
@@ -37,3 +43,9 @@ class PostulanteRegisterForm(UserCreationForm):
             postulante = Postulante(user=user, nombre=self.cleaned_data['nombre'], cv=self.cleaned_data['cv'])
             postulante.save()
         return user
+
+
+class OfertaForm(forms.ModelForm):
+    class Meta:
+        model = Oferta
+        fields = ['titulo', 'descripcion']

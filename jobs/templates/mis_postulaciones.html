@@ -1,0 +1,23 @@
+<!-- templates/mis_postulaciones.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Postulaciones</title>
+</head>
+<body>
+    <h1>Mis Postulaciones</h1>
+    <ul>
+        {% for oferta in ofertas %}
+            <li>
+                <h3>{{ oferta.titulo }}</h3>
+                <p>{{ oferta.descripcion }}</p>
+                <p>Publicado el: {{ oferta.fecha_publicacion }}</p>
+            </li>
+        {% empty %}
+            <li>No has postulado a ninguna oferta.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
